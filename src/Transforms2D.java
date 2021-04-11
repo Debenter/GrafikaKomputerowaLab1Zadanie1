@@ -15,44 +15,43 @@ public class Transforms2D extends JPanel {
             g2.translate(300,300);  // Moves (0,0) to the center of the display.
             int whichTransform = transformSelect.getSelectedIndex();
             ///////////////////////////////////
-
             RenderingHints hints = new RenderingHints(
                     RenderingHints.KEY_TEXT_ANTIALIASING,
-                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON); //Renderowanie zdjęcia
             g2.setRenderingHints(hints);
-            Stroke stroke =  new BasicStroke(2) ;
+            Stroke stroke =  new BasicStroke(2); //Grubość rysującej kreski (grubość krawędzi wielokąta)
             g2.setStroke(stroke);
             Paint paint = new GradientPaint(75, 75, Color.white,
-                    95, 95, Color.gray, true);
+                    95, 95, Color.gray, true); //zmiana koloru wielokąta (gradient)
             g2.setPaint(paint);
 
-            var N = 12;
+            var N = 12; //liczba wierzchołków wielokąta
 
-            int[] X = new int[N];
-            int[] Y = new int[N];
+            int[] X = new int[N]; //współrzędne wierzchołków na osi X
+            int[] Y = new int[N]; //współrzędne wierzchołków na osi Y
 
             for (int i = 0; i < N; i++) {
                 X[i] = (int) (150 * Math.cos(((Math.PI/2) + (2*Math.PI*i))/N));
                 Y[i] = (int) (150 * Math.sin(((Math.PI/2) + (2*Math.PI*i))/N));
-            }
+            } // rysowanie wielokąta przy pomocy wzoru
 
             switch (whichTransform){
                 case 1:
-                    g2.scale(0.5, 0.5);
+                    g2.scale(0.5, 0.5);  //zmiana wielkości wielokąta (zmniejszenie)
                     break;
                 case 2:
-                    g2.rotate(Math.toRadians(45));
+                    g2.rotate(Math.toRadians(45)); //obrót wielokąta, zmiana ze stopni na radiany przy użyciu metody
                     break;
                 case 3:
                     g2.rotate(Math.toRadians(180));
                     g2.scale(-0.5, 1);
                     break;
                 case 4:
-                    g2.shear(0.5,0);;
+                    g2.shear(0.5,0); //pochylenie wielokąta
                     break;
                 case 5:
                     g2.scale(1, 0.5);
-                    g2.translate(0, -450 );
+                    g2.translate(0, -450 ); //przesunięcie wielokąta
                     break;
                 case 6:
                     g2.rotate(Math.toRadians(90));
@@ -69,20 +68,19 @@ public class Transforms2D extends JPanel {
                     break;
                 case 9:
                     g2.translate(150,0);
-                    g2.shear(0,0.5);
+                    g2.shear(0,0.5); //kolejność komend wpływa na wynik końcowy
                     g2.rotate(Math.toRadians(180));
                     break;
                 default:
-
                     break;
-            }
+            } // zmiana opcji wyświetlanego wielokąta
             // TODO Apply transforms here, depending on the value of whichTransform!
 
-            Polygon polygon = new Polygon(X,Y,N);
+            Polygon polygon = new Polygon(X,Y,N); //wielokąt
 
             g2.fill(polygon);
             g2.setPaint( Color.black);
-            g2.drawPolygon(polygon);
+            g2.drawPolygon(polygon); //rysowanie i kolorowanie wielokątu (kolor czarny - bazowy)
 
             //g2.drawImage(pic, -200, -150, null); // Draw image with center at (0,0).
         }
